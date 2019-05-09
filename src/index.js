@@ -1,12 +1,104 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './Components/App/App';
+import registerServiceWorker from './serviceWorker';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+// Provider allows us to use redux within our react app
+import { Provider } from 'react-redux';
+import logger from 'redux-logger';
+import axios from 'axios';
+// Import saga middleware
+import createSagaMiddleware from 'redux-saga';
+import {takeEvery, put} from 'redux-saga/effects';
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+const petReducer = (state = [], action) => {
+    console.log('in petReducer');
+    switch (action.type) {
+        case 'SET_PET':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const ownerReducer = (state = [], action) => {
+    console.log('in ownerReducer');
+    switch (action.type) {
+        case 'SET_OWNER':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+
+function* addPetSaga(action) {
+    console.log('in addPet');
+    try{
+        yield axios.post('/pets/add', action.payload);
+        yield put({type: 'GET_PET'});
+    }
+    catch (error) {
+        console.log('ERROR IN POST', error);
+        alert(`Sorry! Unable to add pet. Try again later.`)
+    }
+}
+
+function* getPetSaga(action) {
+    console.log('in getPetSaga')
+    try{
+        const response = yield axios.get('/pets');
+        console.log('Response is', response);
+        yield put({type:'SET_PET', payload: response.data});
+    }
+    catch (error) {
+        console.log('ERROR IN GET', error);
+        alert(`Sorry! Was unable to get pets. Try again later.`);
+    }
+}
+
+function* getOwnerSaga(action) {
+    console.log('in getOwnerSaga')
+    try{
+        const response = yield axios.get('/owners');
+        console.log('Response is', response);
+        yield put({type:'SET_OWNER', payload: response.data});
+    }
+    catch (error) {
+        console.log('ERROR IN GET', error);
+        alert(`Sorry! Was unable to get owners. Try again later.`);
+    }
+}
+
+
+//watcher saga to take in dispatches
+function* watcherSaga() {
+    yield takeEvery ('ADD_PET', addPetSaga);
+    yield takeEvery ('GET_PET', getPetSaga)
+    yield takeEvery ('GET_OWNER', getOwnerSaga)
+}
+
+// Create sagaMiddleware
+const sagaMiddleware = createSagaMiddleware();
+
+// Create one store that all components can use
+const storeInstance = createStore(
+    combineReducers({
+        ownerReducer,
+        petReducer,
+
+     
+    }),
+    // Add sagaMiddleware to our store
+    applyMiddleware(sagaMiddleware, logger),
+);
+
+// Pass rootSaga into our sagaMiddleware
+sagaMiddleware.run(watcherSaga);
+
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
+    document.getElementById('root'));
+registerServiceWorker();
