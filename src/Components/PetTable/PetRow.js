@@ -9,8 +9,9 @@ const moment = require('moment')
 
 class PetRow extends Component {
 
-  handleDelete = () => {
-    console.log('in handleDelete')
+  handleDelete = (id) => {
+    console.log('in handleDelete', id)
+    this.props.dispatch({ type: 'DELETE_PET', payload: id })
   }
 
   handleCheckIn = () => {
@@ -20,7 +21,7 @@ class PetRow extends Component {
   render() {
     
     return (
-      <TableRow key={this.props.pet.id} hover={true} >
+      <TableRow key={this.props.pet.pet_id} hover={true} >
       
       <TableCell value={this.props.pet.owner_id}>
           {this.props.pet.first_name}
@@ -46,7 +47,7 @@ class PetRow extends Component {
       </TableCell>
 
       <TableCell>
-        <Button onClick={this.handleDelete}>Delete</Button>
+        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
         <Button onClick={this.handleCheckIn}>Check In</Button>
       </TableCell>
 
