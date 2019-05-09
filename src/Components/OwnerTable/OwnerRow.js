@@ -8,8 +8,9 @@ import Button from '@material-ui/core/Button'
 
 class OwnerRow extends Component {
 
-  handleDelete = () => {
-    console.log('in handleDelete')
+  handleDelete = (id) => {
+    console.log('in handleDelete', id )
+    this.props.dispatch({ type: 'DELETE_OWNER', payload: id })
   }
 
   render() {
@@ -27,7 +28,7 @@ class OwnerRow extends Component {
       </TableCell>
       
       <TableCell>
-        <Button onClick={this.handleDelete}>Delete</Button>
+        <Button onClick={()=>this.handleDelete(this.props.owner.id)} value={this.props.owner.id}>Delete</Button>
       </TableCell>
 
       </TableRow>
