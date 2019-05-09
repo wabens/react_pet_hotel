@@ -15,6 +15,7 @@ class PetRow extends Component {
 
   handleCheckIn = () => {
     console.log('in handleCheckIn')
+    
   }
 
   render() {
