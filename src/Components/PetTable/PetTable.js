@@ -30,7 +30,7 @@ class PetTable extends Component {
             </TableHead>
             <TableBody>
               {this.props.reduxState.petReducer.map( (pet) =>
-                  <PetRow key={pet.id} pet={pet}/> 
+                  <PetRow key={pet.pet_id} pet={pet}/> 
               )}
             </TableBody>
         </Table>   

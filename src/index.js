@@ -60,6 +60,20 @@ function* getPetSaga(action) {
     }
 }
 
+function* deletePet(action) {
+    console.log('hit the delete pet saga', action);
+    try {
+        yield axios.delete(`/pets/delete/${action.payload}`)
+        yield put({
+            // call get request and rerender w/ new list values
+            type: 'GET_PET'
+        });
+    } catch (error) {
+        console.log(`Couldn't delete pet`, error);
+        alert(`Sorry, couldn't delete the pet. Try again later`);
+    }
+}
+
 function* getOwnerSaga(action) {
     console.log('in getOwnerSaga')
     try{
@@ -77,8 +91,9 @@ function* getOwnerSaga(action) {
 //watcher saga to take in dispatches
 function* watcherSaga() {
     yield takeEvery ('ADD_PET', addPetSaga);
-    yield takeEvery ('GET_PET', getPetSaga)
-    yield takeEvery ('GET_OWNER', getOwnerSaga)
+    yield takeEvery ('GET_PET', getPetSaga);
+    yield takeEvery ('GET_OWNER', getOwnerSaga);
+    yield takeEvery ('DELETE_PET', deletePet);
 }
 
 // Create sagaMiddleware
