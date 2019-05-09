@@ -1,13 +1,31 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import OwnerTable from '../OwnerTable/OwnerTable';
 
-
+const styles = theme => ({
+    petFormControl: {
+        margin: '25px',
+    },
+    petFormControlTextField:{
+        marginLeft: '25px',
+        marginRight: '25px',
+        marginTop: '41px'
+    },
+    petForm:{
+        margin: '0 auto',
+        textAlign: 'center',
+    },
+    petFormControlButton:{
+        marginLeft: '25px',
+        marginRight: '25px',
+        marginTop: 50
+    },
+})
 
 class AddOwnerForm extends Component {
 
@@ -45,20 +63,26 @@ class AddOwnerForm extends Component {
     console.log(this.state.newOwner)
     return (
         <section>
-            <form>
+            <form className={classes.petForm}>
                 <FormControl>
                 <TextField label="Owner Name" variant="outlined" color="primary"
                     value={this.state.newOwner.first_name}
                     onChange={this.handleChange('first_name')}
+                    className={classes.petFormControlTextField}
                     required
                     type="text"
                     style = {{width: 600}}
                     >
                 </TextField>
                 </FormControl>
-
                 <FormControl>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+                    <Button 
+                        onClick={this.handleSubmit}
+                        className={classes.petFormControlButton}
+                        variant="outlined"
+                    >
+                        Submit
+                    </Button>
                 </FormControl>
               
             </form>
@@ -70,13 +94,10 @@ class AddOwnerForm extends Component {
   }
 }
 
-const styles = theme => ({
 
-    })
-
-
-
-
+AddOwnerForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 const mapReduxStateToProps = (reduxState) => ({
   reduxState,
