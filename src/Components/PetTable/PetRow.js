@@ -8,38 +8,45 @@ import Button from '@material-ui/core/Button'
 
 class PetRow extends Component {
 
+  handleDelete = () => {
+    console.log('in handleDelete')
+  }
 
+  handleCheckIn = () => {
+    console.log('in handleCheckIn')
+  }
 
   render() {
     
     return (
       <TableRow key={this.props.pet.id} hover={true} >
       
+      <TableCell value={this.props.pet.owner_id}>
+          {this.props.pet.first_name}
+      </TableCell>
+         
       <TableCell >
+        {this.props.pet.pet_name}
           
       </TableCell>
-
-      <TableCell >
-          
+      
+      <TableCell>
+        {this.props.pet.breed}
+  
       </TableCell>
 
-      <TableCell >
-          
-      </TableCell>
-
-      <TableCell >
-          
+      <TableCell>
+        {this.props.pet.color}
       </TableCell>
 
      
       <TableCell >
-   
+        {this.props.pet.status}
       </TableCell>
 
-
       <TableCell>
-        <Button>Delete</Button>
-        <Button>Check In</Button>
+        <Button onClick={this.handleDelete}>Delete</Button>
+        <Button onClick={this.handleCheckIn}>Check In</Button>
       </TableCell>
 
       </TableRow>
