@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
+import OwnerTable from '../OwnerTable/OwnerTable';
 
 
 
@@ -63,6 +64,9 @@ class AddOwnerForm extends Component {
                 </FormControl>
               
             </form>
+            <div>
+                <OwnerTable/>
+            </div>
         </section>
     );
   }
