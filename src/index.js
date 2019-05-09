@@ -14,6 +14,7 @@ import {takeEvery, put} from 'redux-saga/effects';
 
 
 
+
 const petReducer = (state = [], action) => {
     console.log('in petReducer');
     switch (action.type) {
@@ -60,7 +61,7 @@ function* getPetSaga(action) {
     }
 }
 
-function* deletePet(action) {
+function* deletePetSaga(action) {
     console.log('hit the delete pet saga', action);
     try {
         yield axios.delete(`/pets/delete/${action.payload}`)
@@ -88,12 +89,59 @@ function* getOwnerSaga(action) {
 }
 
 
+function* deleteOwnerSaga(action) {
+    console.log('hit the delete pet saga', action);
+    try {
+        yield axios.delete(`/owners/delete/${action.payload}`)
+        yield put({
+            // call get request and rerender w/ new list values
+            type: 'GET_OWNER'
+        });
+        yield put({
+            // call get request and rerender w/ new list values
+            type: 'GET_PET'
+        });
+    } catch (error) {
+        console.log(`Couldn't delete owner`, error);
+        alert(`Sorry, couldn't delete the owner. Try again later`);
+    }
+}
+
+function* addOwnerSaga(action) {
+    console.log('in addOwner');
+    try{
+        yield axios.post('/owners/add', action.payload);
+        yield put({type: 'GET_OWNER'});
+    }
+    catch (error) {
+        console.log('ERROR IN POST', error);
+        alert(`Sorry! Unable to add owner. Try again later.`)
+    }
+
+function* updateStatusSaga(action){
+    console.log('in updateStatusSaga', action.payload)
+    try {
+        yield axios.put(`/pets/update/status/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_PET'})
+
+    } catch (error) {
+        console.log('ERROR UPDATING CHECKIN STATUS', error);
+        alert(`Sorry! Was unable to update checkin status. Try again later.`);
+    }
+
+}
+
+
+
 //watcher saga to take in dispatches
 function* watcherSaga() {
     yield takeEvery ('ADD_PET', addPetSaga);
+    yield takeEvery ('ADD_OWNER', addOwnerSaga);
     yield takeEvery ('GET_PET', getPetSaga);
     yield takeEvery ('GET_OWNER', getOwnerSaga);
-    yield takeEvery ('DELETE_PET', deletePet);
+    yield takeEvery ('DELETE_PET', deletePetSaga);
+    yield takeEvery ('DELETE_OWNER', deleteOwnerSaga);
+    yield takeEvery('UPDATE_STATUS', updateStatusSaga)
 }
 
 // Create sagaMiddleware

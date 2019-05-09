@@ -11,17 +11,59 @@ const moment = require('moment')
 
 class PetRow extends Component {
 
+  state = {
+    checkIn: false
+  }
+
+  componentDidMount = () => {
+    this.isCheckedIn()
+  }
+
+  isCheckedIn = () => {
+    let pet = this.props.pet;
+    if ( pet.status ){
+      this.setState({
+        checkIn: true
+      })
+    }
+    else if ( pet.status == null ){
+      this.setState({
+        checkIn: false
+      })
+    }
+  }
+
   handleDelete = (id) => {
     console.log('in handleDelete', id)
     this.props.dispatch({ type: 'DELETE_PET', payload: id })
   }
 
-  handleCheckIn = () => {
-    console.log('in handleCheckIn')
-    
+
+  handleCheckIn = (id) => {
+    console.log('in handleCheckIn', id)
+    let payload = {
+      id,
+      date: moment().format('YYYY-MM-DD')
+    }
+    this.props.dispatch({ type: 'UPDATE_STATUS', payload: payload })
+    this.setState({
+      checkIn: !this.state.checkIn
+    })
   }
 
+  handleCheckOut = (id) => {
+    let payload={
+      id,
+      date: null
+    }
+    this.props.dispatch({ type: 'UPDATE_STATUS', payload: payload })
+    this.setState({
+      checkIn: !this.state.checkIn
+    })
+    }
+
   render() {
+    console.log(`in render status `, this.state.checkIn);
     
     return (
       <TableRow key={this.props.pet.pet_id} hover={true} >
@@ -46,12 +88,17 @@ class PetRow extends Component {
 
      
       <TableCell >
-        {this.props.pet.status&&moment(this.props.pet.status).format('YYYY-MM-DD')}
+        {this.props.pet.status && moment(this.props.pet.status).format('YYYY-MM-DD')}
       </TableCell>
 
       <TableCell>
-        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}><DeleteIcon/>Delete</Button>
-        <Button onClick={this.handleCheckIn}><DoneIcon/>Check In</Button>
+
+        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
+        {this.state.checkIn ? 
+          <Button onClick={()=>this.handleCheckOut(this.props.pet.pet_id)}>Check Out</Button> 
+          :
+          <Button onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}><DoneIcon/>Check In</Button>
+        }
       </TableCell>
 
       </TableRow>
