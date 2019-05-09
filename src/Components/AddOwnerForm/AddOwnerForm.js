@@ -17,12 +17,32 @@ class AddOwnerForm extends Component {
         }
     }
 
-    handleChange = () => {
-        console.log('in handleChange')
+    handleChange = propertyName => {
+        return(event) =>{
+        this.setState({
+            newOwner: {
+                ...this.state.newOwner,
+                [propertyName]: event.target.value,
+            }
+        });
+      }
     }
+    
 
+    handleSubmit = event => {
+        event.preventDefault();
+        console.log('in handleSubmit');
+          this.props.dispatch({type:'ADD_OWNER', payload: this.state.newOwner});
+          this.setState({
+            newOwner: {
+                first_name: '',
+            }
+        })
+     
+    }
   render() {
     const {classes} = this.props;
+    console.log(this.state.newOwner)
     return (
         <section>
             <Nav/>
