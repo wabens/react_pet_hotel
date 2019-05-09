@@ -14,6 +14,7 @@ import {takeEvery, put} from 'redux-saga/effects';
 
 
 
+
 const petReducer = (state = [], action) => {
     console.log('in petReducer');
     switch (action.type) {
@@ -87,6 +88,7 @@ function* getOwnerSaga(action) {
     }
 }
 
+
 function* deleteOwnerSaga(action) {
     console.log('hit the delete pet saga', action);
     try {
@@ -105,6 +107,21 @@ function* deleteOwnerSaga(action) {
     }
 }
 
+function* updateStatusSaga(action){
+    console.log('in updateStatusSaga', action.payload)
+    try {
+        yield axios.put(`/pets/update/status/${action.payload.id}`, action.payload);
+        yield put({type: 'GET_PET'})
+
+    } catch (error) {
+        console.log('ERROR UPDATING CHECKIN STATUS', error);
+        alert(`Sorry! Was unable to update checkin status. Try again later.`);
+    }
+
+}
+
+
+
 //watcher saga to take in dispatches
 function* watcherSaga() {
     yield takeEvery ('ADD_PET', addPetSaga);
@@ -112,6 +129,7 @@ function* watcherSaga() {
     yield takeEvery ('GET_OWNER', getOwnerSaga);
     yield takeEvery ('DELETE_PET', deletePetSaga);
     yield takeEvery ('DELETE_OWNER', deleteOwnerSaga);
+    yield takeEvery('UPDATE_STATUS', updateStatusSaga)
 }
 
 // Create sagaMiddleware
