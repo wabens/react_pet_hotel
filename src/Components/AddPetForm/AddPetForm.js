@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import PetTable from '../PetTable/PetTable';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -18,7 +19,7 @@ class AddPetForm extends Component {
             pet_name: '',
             breed: '',
             color: '',
-            status: '',
+            status: null,
         }
     }
 
@@ -34,6 +35,7 @@ class AddPetForm extends Component {
             newPet: {
                 ...this.state.newPet,
                 [propertyName]: event.target.value,
+                status: null,
             }
         });
       }
@@ -62,9 +64,9 @@ class AddPetForm extends Component {
     console.log(this.state.newPet)
     return (
         <section>
-            <form>
+            <form className={classes.petForm}>
                 <h2>Add Pet</h2>
-                <FormControl>
+                <FormControl className={classes.petFormControlTextField}>
                 <TextField label="Pet Name" variant="outlined" color="primary"
                     value={this.state.newPet.pet_name}
                     onChange={this.handleChange('pet_name')}
@@ -75,7 +77,7 @@ class AddPetForm extends Component {
                 </TextField>
                 </FormControl>
 
-                <FormControl>
+                <FormControl className={classes.petFormControlTextField}>
                 <TextField label="Pet Color" variant="outlined" color="primary"
                     value={this.state.newPet.color}
                     onChange={this.handleChange('color')}
@@ -86,7 +88,7 @@ class AddPetForm extends Component {
                 </TextField>
                 </FormControl>
 
-                <FormControl>
+                <FormControl className={classes.petFormControlTextField}>
                 <TextField label="Pet Breed" variant="outlined" color="primary"
                     value={this.state.newPet.breed}
                     onChange={this.handleChange('breed')}
@@ -97,7 +99,7 @@ class AddPetForm extends Component {
                 </TextField>
                 </FormControl>
 
-                <FormControl variant="outlined">
+                <FormControl variant="outlined" className={classes.petFormControl}>
               <TextField
                     id="owner_id"
                     select
@@ -111,7 +113,7 @@ class AddPetForm extends Component {
                     }}
                     margin="normal"
                     variant="outlined"
-                    style = {{width: 400}}
+                    style = {{width: 200}}
                     required
                   >
                     <MenuItem disabled>Select an Owner</MenuItem>
@@ -122,21 +124,53 @@ class AddPetForm extends Component {
                   </TextField>
             </FormControl>
 
-            <FormControl>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+            <FormControl className={classes.petFormControlButton}>
+                    <Button variant="outlined" onClick={this.handleSubmit}>Submit</Button>
                 </FormControl>
               
             </form>
-           <div>
-                <PetTable/>
-           </div>
+            <div className={classes.imageDiv}>
+                <img src="/images/pug-portrait.png" className={classes.image}></img>
+                <img src="/images/cat.png" className={classes.image}></img>
+                <img src="/images/littledog.png" className={classes.image}></img>
+                <img src="/images/blacklab.png" className={classes.image}></img>
+              
+            </div>
+            
+            <div>
+            <PetTable/>
+            </div>
+                
         </section>
     );
   }
 }
 
 const styles = theme => ({
-
+    petFormControl: {
+        margin: '25px',
+    },
+    petFormControlTextField:{
+        marginLeft: '25px',
+        marginRight: '25px',
+        marginTop: '41px'
+    },
+    petForm:{
+        margin: '0 auto',
+        textAlign: 'center',
+    },
+    petFormControlButton:{
+        marginLeft: '25px',
+        marginRight: '25px',
+        marginTop: '60px'
+    },
+    image:{
+        marginRight: '25px',
+    },
+    imageDiv:{
+        margin: '0 auto',
+        textAlign: 'center',
+    }
     })
 
 

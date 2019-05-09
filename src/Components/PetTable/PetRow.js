@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import DoneIcon from '@material-ui/icons/Done'
 const moment = require('moment')
 
 
@@ -35,6 +37,7 @@ class PetRow extends Component {
     console.log('in handleDelete', id)
     this.props.dispatch({ type: 'DELETE_PET', payload: id })
   }
+
 
   handleCheckIn = (id) => {
     console.log('in handleCheckIn', id)
@@ -89,11 +92,12 @@ class PetRow extends Component {
       </TableCell>
 
       <TableCell>
+
         <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
         {this.state.checkIn ? 
           <Button onClick={()=>this.handleCheckOut(this.props.pet.pet_id)}>Check Out</Button> 
           :
-          <Button onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}>Check In</Button>
+          <Button onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}><DoneIcon/>Check In</Button>
         }
       </TableCell>
 

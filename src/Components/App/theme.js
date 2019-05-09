@@ -5,6 +5,6 @@ export default createMuiTheme({
     
   },
   typography: {
-
+    fontFamily: 'Archivo',
   }
 });
