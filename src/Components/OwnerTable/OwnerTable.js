@@ -1,5 +1,7 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,7 +9,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import OwnerRow from './OwnerRow';
 
-
+const styles = theme => ({
+  petTable:{
+    width: '80%',
+    margin: '0 auto',
+  },
+  petTableContainer:{
+    marginTop: '50px',
+  }
+})
 
 class OwnerTable extends Component {
 
@@ -17,10 +27,11 @@ class OwnerTable extends Component {
 
 
   render() {
+    const { classes } = this.props;
     
     return (
-      <div >
-          <Table >
+      <div className={classes.petTableContainer}>
+          <Table className={classes.petTable}>
             <TableHead >
                 <TableRow>
                   <TableCell>Owner Name</TableCell>
@@ -39,12 +50,12 @@ class OwnerTable extends Component {
   }
 }
 
-
-
-
+OwnerTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });
 
-export default connect( mapReduxStateToProps )(OwnerTable);
+export default connect( mapReduxStateToProps )(withStyles(styles)(OwnerTable));
