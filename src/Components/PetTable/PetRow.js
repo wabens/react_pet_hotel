@@ -1,10 +1,12 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
-import DoneIcon from '@material-ui/icons/Done'
+import HomeIcon from '@material-ui/icons/Home'
+import PetIcon from '@material-ui/icons/Pets'
 const moment = require('moment')
 
 
@@ -63,6 +65,7 @@ class PetRow extends Component {
     }
 
   render() {
+    const {classes} = this.props
     console.log(`in render status `, this.state.checkIn);
     
     return (
@@ -93,11 +96,11 @@ class PetRow extends Component {
 
       <TableCell>
 
-        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
+        <Button className={classes.actionButton} onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}><DeleteIcon/> Delete</Button>
         {this.state.checkIn ? 
-          <Button onClick={()=>this.handleCheckOut(this.props.pet.pet_id)}>Check Out</Button> 
+          <Button className={classes.actionButton} onClick={()=>this.handleCheckOut(this.props.pet.pet_id)}><HomeIcon/>Check Out</Button> 
           :
-          <Button onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}><DoneIcon/>Check In</Button>
+          <Button className={classes.actionButton} onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}><PetIcon/>Check In</Button>
         }
       </TableCell>
 
@@ -108,7 +111,11 @@ class PetRow extends Component {
   }
 }
 
-
+const styles = theme => ({
+  actionButton:{
+    marginRight: '10px',
+  }
+  })
 
 
 
@@ -116,4 +123,4 @@ const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });
 
-export default connect( mapReduxStateToProps )(PetRow);
+export default connect( mapReduxStateToProps )(withStyles(styles)(PetRow));

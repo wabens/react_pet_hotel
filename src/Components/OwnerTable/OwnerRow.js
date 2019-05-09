@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/DeleteOutlined'
 
 
 
@@ -28,7 +29,7 @@ class OwnerRow extends Component {
       </TableCell>
       
       <TableCell>
-        <Button onClick={()=>this.handleDelete(this.props.owner.id)} value={this.props.owner.id}>Delete</Button>
+        <Button onClick={()=>this.handleDelete(this.props.owner.id)} value={this.props.owner.id}><DeleteIcon/>Delete</Button>
       </TableCell>
 
       </TableRow>

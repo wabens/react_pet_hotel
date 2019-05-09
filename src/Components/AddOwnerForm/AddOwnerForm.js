@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import OwnerTable from '../OwnerTable/OwnerTable';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     petFormControl: {
@@ -64,6 +65,7 @@ class AddOwnerForm extends Component {
     return (
         <section>
             <form className={classes.petForm}>
+            <Typography variant="h3" style={{marginTop:'25px'}}>Add Owner</Typography>
                 <FormControl>
                 <TextField label="Owner Name" variant="outlined" color="primary"
                     value={this.state.newOwner.first_name}

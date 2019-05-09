@@ -20,6 +20,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  navButton:{
+    marginRight: '10px',
+  },
 };
 
 class Nav extends Component {
@@ -39,18 +42,17 @@ class Nav extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+            <Typography variant="h5" color="inherit" className={classes.grow}>
               Python Hotel
           </Typography>
-            <Button onClick={this.navToDashboard} color="inherit">Dashboard</Button>
-            <Button onClick={this.navToManageOwners} color="inherit">Manage Owners</Button>
+            <Button color="secondary" variant="contained" onClick={this.navToDashboard} className={classes.navButton}>Dashboard</Button>
+            <Button color="secondary" variant="contained" onClick={this.navToManageOwners} className={classes.navButton}>Manage Owners</Button>
           </Toolbar>
         </AppBar>
       </div>
     );
   }
 }
-
 
 Nav.propTypes = {
   classes: PropTypes.object.isRequired,

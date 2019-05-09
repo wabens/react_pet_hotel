@@ -44,6 +44,7 @@ const styles = theme => ({
   petTable:{
     width: '80%',
     margin: '0 auto',
+    marginBottom: '50px',
     
     
   },

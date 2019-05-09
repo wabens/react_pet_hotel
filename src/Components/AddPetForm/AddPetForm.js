@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import PetTable from '../PetTable/PetTable';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -65,7 +65,7 @@ class AddPetForm extends Component {
     return (
         <section>
             <form className={classes.petForm}>
-                <h2>Add Pet</h2>
+                <Typography variant="h3" style={{marginTop:'25px'}}>Add Pet</Typography>
                 <FormControl className={classes.petFormControlTextField}>
                 <TextField label="Pet Name" variant="outlined" color="primary"
                     value={this.state.newPet.pet_name}
