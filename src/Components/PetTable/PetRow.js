@@ -14,8 +14,9 @@ class PetRow extends Component {
     this.props.dispatch({ type: 'DELETE_PET', payload: id })
   }
 
-  handleCheckIn = () => {
-    console.log('in handleCheckIn')
+  handleCheckIn = (id) => {
+    console.log('in handleCheckIn', id)
+    this.props.dispatch({ type: 'UPDATE_STATUS', payload: id })
   }
 
   render() {
@@ -48,7 +49,7 @@ class PetRow extends Component {
 
       <TableCell>
         <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
-        <Button onClick={this.handleCheckIn}>Check In</Button>
+        <Button onClick={()=>this.handleCheckIn(this.props.pet.pet_id)}>Check In</Button>
       </TableCell>
 
       </TableRow>

@@ -12,6 +12,8 @@ import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import {takeEvery, put} from 'redux-saga/effects';
 
+const moment = require('moment');
+
 
 
 const petReducer = (state = [], action) => {
@@ -87,6 +89,23 @@ function* getOwnerSaga(action) {
     }
 }
 
+function* updateStatusSaga(action){
+    console.log('in updateStatusSaga', action.payload)
+    //set checkin to today's date
+    let date = {
+        date: moment().format('YYYY-MM-DD')
+    }
+    try {
+        yield axios.put(`/pets/update/status/${action.payload}`, date);
+        yield put({type: 'GET_PET'})
+
+    } catch (error) {
+        console.log('ERROR UPDATING CHECKIN STATUS', error);
+        alert(`Sorry! Was unable to update checkin status. Try again later.`);
+    }
+
+}
+
 
 //watcher saga to take in dispatches
 function* watcherSaga() {
@@ -94,6 +113,7 @@ function* watcherSaga() {
     yield takeEvery ('GET_PET', getPetSaga);
     yield takeEvery ('GET_OWNER', getOwnerSaga);
     yield takeEvery ('DELETE_PET', deletePet);
+    yield takeEvery('UPDATE_STATUS', updateStatusSaga)
 }
 
 // Create sagaMiddleware
