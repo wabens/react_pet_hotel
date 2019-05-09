@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
-import Nav from '../Nav/Nav';
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -63,7 +62,6 @@ class AddPetForm extends Component {
     console.log(this.state.newPet)
     return (
         <section>
-            <Nav/>
             <form>
                 <h2>Add Pet</h2>
                 <FormControl>

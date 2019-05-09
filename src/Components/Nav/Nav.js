@@ -19,7 +19,7 @@ class Nav extends Component {
   render() {
     
     return (
-      <header>
+      <header style={{display: 'flex'}}>
         <div>
           <Button onClick={this.navToDashboard}>Dashboard</Button>
         </div>
