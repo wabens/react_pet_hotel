@@ -88,6 +88,18 @@ function* getOwnerSaga(action) {
     }
 }
 
+
+function* addOwnerSaga(action) {
+    console.log('in addOwner');
+    try{
+        yield axios.post('/owners/add', action.payload);
+        yield put({type: 'GET_OWNER'});
+    }
+    catch (error) {
+        console.log('ERROR IN POST', error);
+        alert(`Sorry! Unable to add owner. Try again later.`)
+    }
+
 function* updateStatusSaga(action){
     console.log('in updateStatusSaga', action.payload)
     try {
@@ -105,6 +117,7 @@ function* updateStatusSaga(action){
 //watcher saga to take in dispatches
 function* watcherSaga() {
     yield takeEvery ('ADD_PET', addPetSaga);
+    yield takeEvery ('ADD_OWNER', addOwnerSaga);
     yield takeEvery ('GET_PET', getPetSaga);
     yield takeEvery ('GET_OWNER', getOwnerSaga);
     yield takeEvery ('DELETE_PET', deletePet);
