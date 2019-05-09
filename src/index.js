@@ -117,6 +117,7 @@ function* addOwnerSaga(action) {
         console.log('ERROR IN POST', error);
         alert(`Sorry! Unable to add owner. Try again later.`)
     }
+}
 
 function* updateStatusSaga(action){
     console.log('in updateStatusSaga', action.payload)
