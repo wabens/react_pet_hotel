@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import DoneIcon from '@material-ui/icons/Done'
 const moment = require('moment')
 
 
@@ -48,8 +50,8 @@ class PetRow extends Component {
       </TableCell>
 
       <TableCell>
-        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}>Delete</Button>
-        <Button onClick={this.handleCheckIn}>Check In</Button>
+        <Button onClick={()=>this.handleDelete(this.props.pet.pet_id)} value={this.props.pet.pet_id}><DeleteIcon/>Delete</Button>
+        <Button onClick={this.handleCheckIn}><DoneIcon/>Check In</Button>
       </TableCell>
 
       </TableRow>

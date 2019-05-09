@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { withStyles } from '@material-ui/core';
 import PetRow from './PetRow';
 
 
@@ -14,10 +15,10 @@ class PetTable extends Component {
 
 
   render() {
-    
+    const {classes}=this.props
     return (
-      <div >
-          <Table >
+      <div className={classes.petTableContainer}>
+          <Table className={classes.petTable}>
             <TableHead >
                 <TableRow>
                   <TableCell>Owner</TableCell>
@@ -39,6 +40,18 @@ class PetTable extends Component {
   }
 }
 
+const styles = theme => ({
+  petTable:{
+    width: '80%',
+    margin: '0 auto',
+    
+    
+  },
+  petTableContainer:{
+    marginTop: '50px',
+  }
+  })
+
 
 
 
@@ -47,4 +60,4 @@ const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });
 
-export default connect( mapReduxStateToProps )(PetTable);
+export default connect( mapReduxStateToProps )(withStyles(styles)(PetTable));
