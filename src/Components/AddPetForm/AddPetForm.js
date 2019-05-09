@@ -25,6 +25,8 @@ class AddPetForm extends Component {
 
     componentDidMount() {
         this.props.dispatch({type:'GET_OWNER'});
+        this.props.dispatch({type:'GET_PET'});
+
     }
 
     handleChange = propertyName => {

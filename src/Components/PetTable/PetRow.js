@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button'
+const moment = require('moment')
 
 
 
@@ -41,7 +42,7 @@ class PetRow extends Component {
 
      
       <TableCell >
-        {this.props.pet.status}
+        {this.props.pet.status&&moment(this.props.pet.status).format('YYYY-MM-DD')}
       </TableCell>
 
       <TableCell>
