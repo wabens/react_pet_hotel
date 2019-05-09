@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import {connect} from 'react-redux';
-import Nav from '../Nav/Nav';
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -46,7 +45,6 @@ class AddOwnerForm extends Component {
     console.log(this.state.newOwner)
     return (
         <section>
-            <Nav/>
             <form>
                 <FormControl>
                 <TextField label="Owner Name" variant="outlined" color="primary"
