@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import PetTable from '../PetTable/PetTable';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -128,9 +129,18 @@ class AddPetForm extends Component {
                 </FormControl>
               
             </form>
-           <div>
-                <PetTable/>
-           </div>
+            <div className={classes.imageDiv}>
+                <img src="/images/pug-portrait.png" className={classes.image}></img>
+                <img src="/images/cat.png" className={classes.image}></img>
+                <img src="/images/littledog.png" className={classes.image}></img>
+                <img src="/images/blacklab.png" className={classes.image}></img>
+              
+            </div>
+            
+            <div>
+            <PetTable/>
+            </div>
+                
         </section>
     );
   }
@@ -154,6 +164,13 @@ const styles = theme => ({
         marginRight: '25px',
         marginTop: '60px'
     },
+    image:{
+        marginRight: '25px',
+    },
+    imageDiv:{
+        margin: '0 auto',
+        textAlign: 'center',
+    }
     })
 
 
